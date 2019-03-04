@@ -31,13 +31,15 @@ import usf.dvl.graph.mapper.filter.FilterEccentricity;
 import usf.dvl.graph.mapper.filter.FilterEigenFunctions;
 import usf.dvl.mog.GraphData;
 import usf.dvl.mog.PAppletMOG;
+import usf.dvl.mog.mapper.selection.SelectionForceDirected;
+import usf.dvl.mog.mapper.selection.SelectionFrame;
 
 
 public class MainFrame extends DMultiFrame<DObject> {
 
 	private GraphData gdata;
-	private GraphFrame fdd;
-	private ArrayList<MapperFrame> mapper = new ArrayList<MapperFrame>();
+	private SelectionForceDirected fdd;
+	private ArrayList<SelectionFrame> mapper = new ArrayList<SelectionFrame>();
 	private OptionListFrame selBoxes0, selBoxes1;
 	private CheckableBox eqlBox0, eqlBox1;
 	private CheckableBox resetBox0, resetBox1;
@@ -50,28 +52,39 @@ public class MainFrame extends DMultiFrame<DObject> {
 	public void setData( GraphData _gdata ) {
 		gdata = _gdata;
 
-		fdd = new GraphFrame( papplet, gdata );
+		fdd = new SelectionForceDirected( papplet, gdata );
 		addFrame(fdd);
+
 		
-
 		mapper.clear();
-		mapper.add( new MapperFrame( papplet, gdata, new FilterDensity( gdata, 2 ), 5, 0.1f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterAGD( gdata ), 3, 0.1f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterEccentricity( gdata, 2), 5, 0.1f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 0), 5, 0.2f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 1), 5, 0.2f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 2), 5, 0.2f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 3), 5, 0.2f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 4), 5, 0.2f ) );
-		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 5), 5, 0.2f ) );
 
+//		mapper.add( new MapperFrame( papplet, gdata, new FilterDensity( gdata, 2 ), 5, 0.1f ) );
+//		mapper.add( new MapperFrame( papplet, gdata, new FilterAGD( gdata ), 3, 0.1f ) );
+//		mapper.add( new MapperFrame( papplet, gdata, new FilterEccentricity( gdata, 2), 5, 0.1f ) );
+//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 0), 5, 0.2f ) );
+//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 1), 5, 0.2f ) );
+//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 2), 5, 0.2f ) );
+//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 3), 5, 0.2f ) );
+		//mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 4), 5, 0.2f ) );
+		//mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 5), 5, 0.2f ) );
+
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterDensity( gdata, 2 ), 5, 0.1f, fdd ) );
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterAGD( gdata ), 3, 0.1f, fdd) );
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterEccentricity( gdata, 2), 5, 0.1f, fdd ) );
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 0), 5, 0.2f, fdd ) );
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 1), 5, 0.2f, fdd ) );
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 2), 5, 0.2f, fdd ) );
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 3), 5, 0.2f, fdd ) );		
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 4), 5, 0.2f, fdd ) );
+		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 5), 5, 0.2f, fdd ) );
 		for( int i = 0; i < mapper.size(); i++ ){
 			mapper.get(i).setColormap( PAppletMOG.colmaps.get(i%PAppletMOG.colmaps.size()) );
 		}
 		
 		addFrames( mapper.get(0) );
 		addFrames( mapper.get(1) );
-		
+		// me 
+		//addFrames( mapper.get(2));
 
 		DColorScheme selCol = DColorScheme.Default.createFillStrokeOnly( papplet.color(100),  papplet.color(0), 2 );
 		DColorScheme selTxt = DColorScheme.Default.createFillStrokeOnly( papplet.color(255),  papplet.color(0), 1 );
@@ -141,11 +154,11 @@ public class MainFrame extends DMultiFrame<DObject> {
 	@Override public void update() {
 		fdd.setPosition( 705, 0, getWidth()-705, h );
 		
-		MapperFrame mframe0 = mapper.get( selBoxes0.getCurrentSelection() );
+		SelectionFrame mframe0 = mapper.get( selBoxes0.getCurrentSelection() );
 		mframe0.setPosition( 5, 5, 590, h/2-10 );
 		setFrame( 1, mframe0 );
 		
-		MapperFrame mframe1 = mapper.get( selBoxes1.getCurrentSelection() );
+		SelectionFrame mframe1 = mapper.get( selBoxes1.getCurrentSelection() );
 		mframe1.setPosition( 5, h/2+5, 590, h/2-10 );
 		setFrame( 2, mframe1 );
 		

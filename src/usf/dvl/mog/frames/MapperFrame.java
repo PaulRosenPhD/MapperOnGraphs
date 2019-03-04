@@ -17,6 +17,7 @@
 */
 package usf.dvl.mog.frames;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import processing.core.PApplet;
@@ -26,6 +27,7 @@ import usf.dvl.draw.color.SequentialColormap;
 import usf.dvl.graph.Graph;
 import usf.dvl.graph.Graph.GraphEdge;
 import usf.dvl.graph.Graph.GraphVertex;
+import usf.dvl.graph.layout.forcedirected.ForceDirectedLayout;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
 import usf.dvl.graph.mapper.Cover;
@@ -39,10 +41,10 @@ public class MapperFrame extends DMultiFrame<DFrame> {
 
 	public Filter filter;
 
-	private Mapper mapperG;
+	protected Mapper mapperG;
 	private Cover cover;
 	private SequentialColormap colormap;
-	private ForceDirectedLayoutFrame fdl; 
+	protected ForceDirectedLayoutFrame fdl; 
 	private CoverFrame coverD;
 	private Graph graph;
 
@@ -255,7 +257,18 @@ public class MapperFrame extends DMultiFrame<DFrame> {
 			PAppletMOG.selectedFunction = this;
 			PAppletMOG.selectedColormap = colormap;
 			PAppletMOG.selectedVertex = (Mapper.MapperVertex)mapperG.nodes.get( fdl.getSelectedPoint() );
+			//System.out.println("Found it"); // create a new object SelectionFrame
+//			System.out.println(fdl.getSelectedPoint() );
 			selected = true;
+			
+//			Mapper.MapperVertex vertex = (Mapper.MapperVertex)mapperG.nodes.get( fdl.getSelectedPoint() );
+//			Graph graph = new Graph();
+			
+			// this doesn't work
+//			graph.nodes = (ArrayList<GraphVertex>)vertex.cc;
+			
+			//ForceDirectedLayout FDL = new ForceDirectedLayout(graph, 100, 100);
+			
 		}
 
 

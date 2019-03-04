@@ -26,6 +26,7 @@ import usf.dvl.graph.mapper.Interval;
 import usf.dvl.graph.mapper.Mapper;
 import usf.dvl.mog.frames.MainFrame;
 import usf.dvl.mog.frames.MapperFrame;
+import usf.dvl.mog.mapper.selection.SelectionFrame;
 import usf.dvl.processing.PFrameApplet;
 
 public class PAppletMOG extends PFrameApplet<MainFrame> {

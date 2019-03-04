@@ -56,6 +56,7 @@ public class GraphFrame extends ForceDirectedLayoutFrame {
 			double filterVal = (PAppletMOG.selectedFunction!=null) ? PAppletMOG.selectedFunction.filter.get(v) : Double.NaN;
 
 			if( PAppletMOG.selectedVertex!=null ){
+				//System.out.println("Found it 2");
 				if( PAppletMOG.selectedVertex.cc.contains(v) ) return papplet.color(0,0,255); 
 				return papplet.color( 150 );
 			}
