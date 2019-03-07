@@ -45,14 +45,14 @@ public class SelectionForceDirected extends GraphFrame{
 //			this.unmapX = super.mapX(this.unmapX );
 //			this.unmapY = super.mapY(this.unmapY );
 			
-			this.unmapX = super.mapX(this.unmapX + this._otheru0);
-			this.unmapY = super.mapY(this.unmapY + this._otherv0);
+//			this.unmapX = super.mapX(this.unmapX + this._otheru0);
+//			this.unmapY = super.mapY(this.unmapY + this._otherv0);
 //			
 //			this.unmapX = super.mapX(this.unmapX - this._otheru0);
 //			this.unmapY = super.mapY(this.unmapY - this._otherv0);			
 			
-//			this.unmapX = this.unmapX(this.unmapX - this.u0);
-//			this.unmapY = this.unmapY(this.unmapY - this.v0);
+			this.unmapX = this.unmapX(this.unmapX - this.u0);
+			this.unmapY = this.unmapY(this.unmapY - this.v0);
 //			System.out.println("X");
 //			System.out.println(this.unmapX);
 
