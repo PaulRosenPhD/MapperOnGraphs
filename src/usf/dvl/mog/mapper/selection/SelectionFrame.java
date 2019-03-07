@@ -69,6 +69,7 @@ public class SelectionFrame extends MapperFrame{
 
 		if ( super.fdl.getSelectedPoint() >= 0 )
 		{
+//			PAppletMOG.selectedFunction = this;
 			selected = (Mapper.MapperVertex)super.mapperG.nodes.get( super.fdl.getSelectedPoint() );
 			_cc = selected.cc;
 			
@@ -82,6 +83,7 @@ public class SelectionFrame extends MapperFrame{
 //			}
 			cc.clear();
 			cc.addAll( _cc );
+			this.SFD.cc = this.cc;
 			 //for all, try and make a different color 
 //			for (GraphVertex g : selected.cc)
 //			{
@@ -104,8 +106,13 @@ public class SelectionFrame extends MapperFrame{
 			
 			this.SFD.selectedPoint = super.fdl.getSelectedPoint();
 			
-			
-			
+			if ( this.SFD.forceSLA != null ) 
+			{
+//				super.fdl.fdl.addForces( this.SFD.forceSLA ); 
+//				System.out.println("Should've worked");
+
+			}
+
 		}
 	}
 	
@@ -114,17 +121,13 @@ public class SelectionFrame extends MapperFrame{
 	{
 		super.draw();
 		
-//		for (GraphVertex v : _cc )
-//		{
-//			
-//		}
+		if (this.selected != null)
+		{
+			
+		}
+
 	}
-	
-	/*
-	public void setPosition( int _u0, int _v0, int _w, int _h)
-	{
-		super.setPosition(_u0, _v0, _w, _h);
-	}
+
 	
 	
 	

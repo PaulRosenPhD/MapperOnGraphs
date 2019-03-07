@@ -38,6 +38,7 @@ import usf.dvl.mog.mapper.selection.SelectionFrame;
 public class MainFrame extends DMultiFrame<DObject> {
 
 	private GraphData gdata;
+	// right side of the main screen
 	private SelectionForceDirected fdd;
 	private ArrayList<SelectionFrame> mapper = new ArrayList<SelectionFrame>();
 	private OptionListFrame selBoxes0, selBoxes1;
@@ -152,6 +153,8 @@ public class MainFrame extends DMultiFrame<DObject> {
 	
 	
 	@Override public void update() {
+		
+		// this is the right side of the main screen
 		fdd.setPosition( 705, 0, getWidth()-705, h );
 		
 		SelectionFrame mframe0 = mapper.get( selBoxes0.getCurrentSelection() );
