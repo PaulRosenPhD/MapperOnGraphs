@@ -94,9 +94,9 @@ public class SelectionFrame extends MapperFrame{
 //			}
 //			graph.nodes = (ArrayList<GraphVertex>)selected.cc;
 			
-			this.SFD.unmapX = papplet.mouseX;   /*super.fdl.unmapX(papplet.mouseX-u0);*/
+			this.SFD.unmapX = papplet.mouseX - u0;   /*super.fdl.unmapX(papplet.mouseX-u0);*/
 			this.SFD.unmapY = papplet.mouseY; /* super.fdl.unmapY(papplet.mouseY-v0); */
-
+			System.out.println(papplet.mouseX + " " + papplet.mouseY);
 			// broke this because I changed unmap back to protected on FDL Frame
 //			this.SFD.unmapX =  super.fdl.unmapX(papplet.mouseX-u0);
 //			this.SFD.unmapY =  super.fdl.unmapY(papplet.mouseY-v0); 
