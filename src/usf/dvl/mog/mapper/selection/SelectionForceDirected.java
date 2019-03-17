@@ -39,6 +39,9 @@ public class SelectionForceDirected extends GraphFrame{
 	@Override
 	public void update()
 	{
+		// this.u0 is correct for this layout
+//		System.out.println(papplet.mouseX + " " + this.u0 + " " + ( this.u0 + this.w) );
+		
 		super.update();
 		if ( this.selectedPoint >= 0 )
 		{
@@ -51,8 +54,19 @@ public class SelectionForceDirected extends GraphFrame{
 //			this.unmapX = super.mapX(this.unmapX - this._otheru0);
 //			this.unmapY = super.mapY(this.unmapY - this._otherv0);			
 			
-			this.unmapX = this.unmapX(this.unmapX - this.u0);
-			this.unmapY = this.unmapY(this.unmapY - this.v0);
+//			this.unmapX = this.unmapX(this.unmapX - this.u0);
+//			this.unmapY = this.unmapY(this.unmapY - this.v0);
+//			System.out.println("Before: " + this.unmapX );
+			
+			// solved this problem using hard-coded values
+			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
+//			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 705, 1600);
+//			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, this.u0, this.u0 + this.w);
+//			System.out.println(this.unmapX);
+//			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, this.v0 + this.h, this.v0);
+			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, 900, 0);
+			
+//			System.out.println(super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY());
 //			System.out.println("X");
 //			System.out.println(this.unmapX);
 
@@ -68,26 +82,31 @@ public class SelectionForceDirected extends GraphFrame{
 //			System.out.println("Entered");
 			
 			// unmap x and y before setting
+//			System.out.println(this.unmapX);
+			//System.out.println("Before " + super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY() );
 			super.fdl.setVertexPosition(this.selectedPoint, this.unmapX, this.unmapY);
+			//System.out.println("After " + super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY() );
+//			System.out.println(this.unmapX + " " + this.unmapY);
+			
 //			System.out.println("Exited");
 			
 			
-			_g.nodes = this.cc;
-			
-			this.selectedFDL = new ForceDirectedLayout(_g, this.w, this.h);
-//			System.out.println(_g.getNodeCount() + " " + _g.getEdgeCount() );
-			
-			this.forceSLA = new LinearAttractiveForceSet(this.selectedFDL, this.unmapX, this.unmapY, 999999f);
-//			System.out.println(this.forceSLA.pullScaleFactor);
-			
-			this.forceSAF = new SpringAttractiveForceSet( this.selectedFDL);
-			// why doesn't this work ?
-			super.fdl.addForces( this.forceSLA );
-			super.fdl.addForces( this.forceSAF );
-			super.forceSLA.addAll( this.forceSLA );
-			super.forceSAF.addAll( this.forceSAF );
-			super.forceSLA.addAll(this.selectedPoint, this.forceSLA);
-			super.forceSAF.addAll(this.selectedPoint, this.forceSAF);
+//			_g.nodes = this.cc;
+//			
+//			
+//			this.selectedFDL = new ForceDirectedLayout(_g, this.w, this.h);
+//			
+//			this.forceSLA = new LinearAttractiveForceSet(this.selectedFDL, this.unmapX, this.unmapY, 999999f);
+//
+//			
+//			this.forceSAF = new SpringAttractiveForceSet( this.selectedFDL);
+//			// why doesn't this work ?
+//			super.fdl.addForces( this.forceSLA );
+//			super.fdl.addForces( this.forceSAF );
+//			super.forceSLA.addAll( this.forceSLA );
+//			super.forceSAF.addAll( this.forceSAF );
+//			super.forceSLA.addAll(this.selectedPoint, this.forceSLA);
+//			super.forceSAF.addAll(this.selectedPoint, this.forceSAF);
 			
 //			for ( GraphVertex _v : this.cc)
 //			{
@@ -95,6 +114,7 @@ public class SelectionForceDirected extends GraphFrame{
 //			}
 
 		}
+		
 		this.selectedPoint = -1;
 	}
 	

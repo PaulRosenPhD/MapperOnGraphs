@@ -53,6 +53,9 @@ public class SelectionFrame extends MapperFrame{
 	protected ArrayList<GraphVertex> cc = new ArrayList<GraphVertex>();
 	protected SelectionForceDirected SFD = null;
 	
+	// not sure if this will work
+	protected float unmapX = -1;
+	protected float unmapY = -1;
 	
 	public SelectionFrame( PApplet p, Graph _graph, Filter _filter, int resolution, float eps, SelectionForceDirected SFD ){
 		super(p,_graph,_filter, resolution, eps );
@@ -66,7 +69,7 @@ public class SelectionFrame extends MapperFrame{
 	public void update()
 	{
 		super.update();
-
+		
 		if ( super.fdl.getSelectedPoint() >= 0 )
 		{
 //			PAppletMOG.selectedFunction = this;
@@ -94,16 +97,39 @@ public class SelectionFrame extends MapperFrame{
 //			}
 //			graph.nodes = (ArrayList<GraphVertex>)selected.cc;
 			
-			this.SFD.unmapX = papplet.mouseX - u0;   /*super.fdl.unmapX(papplet.mouseX-u0);*/
-			this.SFD.unmapY = papplet.mouseY; /* super.fdl.unmapY(papplet.mouseY-v0); */
-			System.out.println(papplet.mouseX + " " + papplet.mouseY);
+			this.unmapX = papplet.mouseX;
+			this.unmapY = papplet.mouseY;
+
+
+			if ( this.unmapX < super.fdl.getU0() ) 						   { this.unmapX = super.fdl.getU0(); }
+			if ( this.unmapX > super.fdl.getU0() + super.fdl.getWidth() )  { this.unmapX = super.fdl.getU0() + super.fdl.getWidth(); }
+			if ( this.unmapY < super.fdl.getV0() ) 						   { this.unmapY = super.fdl.getV0(); }
+			if ( this.unmapY > super.fdl.getV0() + super.fdl.getHeight() ) { this.unmapY = super.fdl.getV0() + super.fdl.getHeight(); }
+			
+//			System.out.println(this.unmapX + " " + this.unmapY);
+			this.SFD.unmapX = this.unmapX;   /*super.fdl.unmapX(papplet.mouseX-u0);*/
+			this.SFD.unmapY = this.unmapY; /* super.fdl.unmapY(papplet.mouseY-v0); */
+//			System.out.println(papplet.mouseX + " " + papplet.mouseY);
+//			System.out.println(this.u0 + " " + this.v0 + " " + this.h + " " + this.w);
+			
+			// this gets min values, not the vertex position
+//			super.fdl.getU0();
+//			super.fdl.getV0();
+//			super.fdl.getWidth();
+//			super.fdl.getHeight();
+			
+//			System.out.println(super.fdl.fdl.getVertex(super.fdl.getSelectedPoint() ).getPositionX() + " " + super.fdl.fdl.getVertex(super.fdl.getSelectedPoint() ).getPositionY() );
+			
+//			for (ForceDirectedLayout)
+			
 			// broke this because I changed unmap back to protected on FDL Frame
 //			this.SFD.unmapX =  super.fdl.unmapX(papplet.mouseX-u0);
 //			this.SFD.unmapY =  super.fdl.unmapY(papplet.mouseY-v0); 
-			this.SFD._otheru0 = this.u0;
-			this.SFD._otherv0 = this.v0;
-			this.SFD._otherW = this.w;
-			this.SFD._otherH = this.h;
+//			System.out.println(papplet.mouseX + " " + super.fdl.getU0() + " " + (super.fdl.getWidth()) );
+			this.SFD._otheru0 = super.fdl.getU0();
+			this.SFD._otherv0 = super.fdl.getV0();
+			this.SFD._otherW = super.fdl.getU0() + super.fdl.getWidth();
+			this.SFD._otherH = super.fdl.getV0() + super.fdl.getHeight();
 			
 			
 			this.SFD.selectedPoint = super.fdl.getSelectedPoint();
