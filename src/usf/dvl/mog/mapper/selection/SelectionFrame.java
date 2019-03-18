@@ -97,9 +97,9 @@ public class SelectionFrame extends MapperFrame{
 //			}
 //			graph.nodes = (ArrayList<GraphVertex>)selected.cc;
 			
+			// this works...sort of
 			this.unmapX = papplet.mouseX;
 			this.unmapY = papplet.mouseY;
-
 
 			if ( this.unmapX < super.fdl.getU0() ) 						   { this.unmapX = super.fdl.getU0(); }
 			if ( this.unmapX > super.fdl.getU0() + super.fdl.getWidth() )  { this.unmapX = super.fdl.getU0() + super.fdl.getWidth(); }

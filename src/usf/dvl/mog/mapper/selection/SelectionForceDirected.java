@@ -59,6 +59,8 @@ public class SelectionForceDirected extends GraphFrame{
 //			System.out.println("Before: " + this.unmapX );
 			
 			// solved this problem using hard-coded values
+			// gonna have to clean this up once I figure out if Dr. Rosen mapped the values or not
+			
 			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
 //			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 705, 1600);
 //			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, this.u0, this.u0 + this.w);
