@@ -7,6 +7,7 @@ import usf.dvl.graph.Graph;
 import usf.dvl.graph.Graph.GraphVertex;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayout;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
+import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
 import usf.dvl.graph.layout.forcedirected.force.BasicForce;
 import usf.dvl.graph.layout.forcedirected.force.LinearAttractiveForceSet;
 import usf.dvl.graph.layout.forcedirected.force.SpringAttractiveForceSet;
@@ -22,11 +23,12 @@ public class SelectionForceDirected extends GraphFrame{
 	protected float _otheru0, _otherv0, _otherW, _otherH;
 	
 	//forces
-	protected Graph _g = new Graph();
+//	protected Graph _g = new Graph();
 	protected ArrayList<GraphVertex> cc = new ArrayList<GraphVertex>();
-	protected LinearAttractiveForceSet forceSLA = null;
-	protected SpringAttractiveForceSet forceSAF = null;
-	protected ForceDirectedLayout selectedFDL = null;
+	protected ArrayList<ForceDirectedLayoutVertex> verts =  new ArrayList<ForceDirectedLayoutVertex>();
+//	protected LinearAttractiveForceSet forceSLA = null;
+//	protected SpringAttractiveForceSet forceSAF = null;
+//	protected ForceDirectedLayout selectedFDL = null;
 	
 	public SelectionForceDirected(PApplet p, Graph _g ) {
 		super( p, _g );

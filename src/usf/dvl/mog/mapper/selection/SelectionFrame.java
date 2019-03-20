@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import usf.dvl.graph.Graph;
 import usf.dvl.graph.Graph.GraphEdge;
 import usf.dvl.graph.Graph.GraphVertex;
+import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
 import usf.dvl.graph.mapper.Mapper;
 import usf.dvl.graph.mapper.Mapper.MapperVertex;
 import usf.dvl.graph.mapper.filter.Filter;
@@ -53,6 +54,8 @@ public class SelectionFrame extends MapperFrame{
 	protected ArrayList<GraphVertex> cc = new ArrayList<GraphVertex>();
 	protected SelectionForceDirected SFD = null;
 	
+	protected ArrayList<ForceDirectedLayoutVertex> verts = new ArrayList<ForceDirectedLayoutVertex>();
+	
 	// not sure if this will work
 	protected float unmapX = -1;
 	protected float unmapY = -1;
@@ -75,8 +78,9 @@ public class SelectionFrame extends MapperFrame{
 //			PAppletMOG.selectedFunction = this;
 			selected = (Mapper.MapperVertex)super.mapperG.nodes.get( super.fdl.getSelectedPoint() );
 			_cc = selected.cc;
+			super.fdl.fdl.getVertices();
 			
-			if (selected == null) { System.out.println("oops"); }
+			
 //			ArrayList<GraphVertex> adj = (ArrayList<GraphVertex>)this.selected.getAdjacentVertices();
 			
 			// okay I guess this doesn't work
@@ -87,6 +91,13 @@ public class SelectionFrame extends MapperFrame{
 			cc.clear();
 			cc.addAll( _cc );
 			this.SFD.cc = this.cc;
+			
+			for ( GraphVertex g : cc)
+			{
+				// rename 
+				verts.add( super.fdl.fdl.getVertex( cc.indexOf(g) ) );
+			}
+			this.SFD.verts = this.verts;
 			 //for all, try and make a different color 
 //			for (GraphVertex g : selected.cc)
 //			{
@@ -134,12 +145,12 @@ public class SelectionFrame extends MapperFrame{
 			
 			this.SFD.selectedPoint = super.fdl.getSelectedPoint();
 			
-			if ( this.SFD.forceSLA != null ) 
-			{
-//				super.fdl.fdl.addForces( this.SFD.forceSLA ); 
-//				System.out.println("Should've worked");
-
-			}
+//			if ( this.SFD.forceSLA != null ) 
+//			{
+////				super.fdl.fdl.addForces( this.SFD.forceSLA ); 
+////				System.out.println("Should've worked");
+//
+//			}
 
 		}
 	}
