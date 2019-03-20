@@ -46,7 +46,7 @@ public class MapperFrame extends DMultiFrame<DFrame> {
 	private SequentialColormap colormap;
 	protected ForceDirectedLayoutFrame fdl; 
 	private CoverFrame coverD;
-	private Graph graph;
+	protected Graph graph;
 
 
 	private boolean selected = false;

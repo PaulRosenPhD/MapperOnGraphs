@@ -94,8 +94,9 @@ public class SelectionFrame extends MapperFrame{
 			
 			for ( GraphVertex g : cc)
 			{
-				// rename 
-				verts.add( super.fdl.fdl.getVertex( cc.indexOf(g) ) );
+				// rename
+
+				verts.add( super.fdl.fdl.getVertex( graph.getVertexIndex( g) ) );
 			}
 			this.SFD.verts = this.verts;
 			 //for all, try and make a different color 
