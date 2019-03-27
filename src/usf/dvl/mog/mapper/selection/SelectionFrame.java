@@ -121,7 +121,7 @@ public class SelectionFrame extends MapperFrame{
 //			if ( this.unmapY > super.fdl.getV0() + super.fdl.getHeight() ) { this.unmapY = super.fdl.getV0() + super.fdl.getHeight(); }
 			
 //			System.out.println(this.unmapX + " " + this.unmapY);
-			this.fdl.fdl.unmapX(this.unmapX);
+
 			this.SFD.unmapX = this.unmapX;   /*super.fdl.unmapX(papplet.mouseX-u0);*/
 			this.SFD.unmapY = this.unmapY; /* super.fdl.unmapY(papplet.mouseY-v0); */
 			
