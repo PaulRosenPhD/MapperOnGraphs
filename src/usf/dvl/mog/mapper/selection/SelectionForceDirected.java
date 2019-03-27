@@ -63,12 +63,23 @@ public class SelectionForceDirected extends GraphFrame{
 			// solved this problem using hard-coded values
 			// gonna have to clean this up once I figure out if Dr. Rosen mapped the values or not
 			
-			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
+
 //			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 705, 1600);
 //			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, this.u0, this.u0 + this.w);
 //			System.out.println(this.unmapX);
 //			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, this.v0 + this.h, this.v0);
+			
+			/* this works for now
+			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
 			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, 900, 0);
+			*/
+			this.unmapX = super.unmapX(this.unmapX );
+			this.unmapY = super.unmapY(this.unmapY );
+			System.out.println("X:" + this.unmapX);
+			System.out.println("Y:" + this.unmapY);
+//			this.unmapX = super.mapX(this.unmapX );
+//			this.unmapY = super.mapY(this.unmapY );
+
 			
 //			System.out.println(super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY());
 //			System.out.println("X");

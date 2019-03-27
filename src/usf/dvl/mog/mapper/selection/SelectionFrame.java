@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import usf.dvl.graph.Graph;
 import usf.dvl.graph.Graph.GraphEdge;
 import usf.dvl.graph.Graph.GraphVertex;
+import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
 import usf.dvl.graph.mapper.Mapper;
 import usf.dvl.graph.mapper.Mapper.MapperVertex;
@@ -92,13 +93,14 @@ public class SelectionFrame extends MapperFrame{
 			cc.addAll( _cc );
 			this.SFD.cc = this.cc;
 			
-			for ( GraphVertex g : cc)
-			{
-				// rename
-
-				verts.add( super.fdl.fdl.getVertex( graph.getVertexIndex( g) ) );
-			}
-			this.SFD.verts = this.verts;
+			// this doesn't work the way it's supposed to 20190327
+//			for ( GraphVertex g : cc)
+//			{
+//				// rename
+//
+//				verts.add( super.fdl.fdl.getVertex( graph.getVertexIndex( g) ) );
+//			}
+//			this.SFD.verts = this.verts;
 			 //for all, try and make a different color 
 //			for (GraphVertex g : selected.cc)
 //			{
@@ -110,17 +112,19 @@ public class SelectionFrame extends MapperFrame{
 //			graph.nodes = (ArrayList<GraphVertex>)selected.cc;
 			
 			// this works...sort of
-			this.unmapX = papplet.mouseX;
-			this.unmapY = papplet.mouseY;
+			this.unmapX = PApplet.constrain( papplet.mouseX, super.fdl.getU0(), super.fdl.getU0() + super.fdl.getWidth() );
+			this.unmapY = PApplet.constrain( papplet.mouseY, super.fdl.getV0(), super.fdl.getV0() + super.fdl.getHeight() );
 
-			if ( this.unmapX < super.fdl.getU0() ) 						   { this.unmapX = super.fdl.getU0(); }
-			if ( this.unmapX > super.fdl.getU0() + super.fdl.getWidth() )  { this.unmapX = super.fdl.getU0() + super.fdl.getWidth(); }
-			if ( this.unmapY < super.fdl.getV0() ) 						   { this.unmapY = super.fdl.getV0(); }
-			if ( this.unmapY > super.fdl.getV0() + super.fdl.getHeight() ) { this.unmapY = super.fdl.getV0() + super.fdl.getHeight(); }
+//			if ( this.unmapX < super.fdl.getU0() ) 						   { this.unmapX = super.fdl.getU0(); }
+//			if ( this.unmapX > super.fdl.getU0() + super.fdl.getWidth() )  { this.unmapX = super.fdl.getU0() + super.fdl.getWidth(); }
+//			if ( this.unmapY < super.fdl.getV0() ) 						   { this.unmapY = super.fdl.getV0(); }
+//			if ( this.unmapY > super.fdl.getV0() + super.fdl.getHeight() ) { this.unmapY = super.fdl.getV0() + super.fdl.getHeight(); }
 			
 //			System.out.println(this.unmapX + " " + this.unmapY);
+			this.fdl.fdl.unmapX(this.unmapX);
 			this.SFD.unmapX = this.unmapX;   /*super.fdl.unmapX(papplet.mouseX-u0);*/
 			this.SFD.unmapY = this.unmapY; /* super.fdl.unmapY(papplet.mouseY-v0); */
+			
 //			System.out.println(papplet.mouseX + " " + papplet.mouseY);
 //			System.out.println(this.u0 + " " + this.v0 + " " + this.h + " " + this.w);
 			
@@ -160,11 +164,12 @@ public class SelectionFrame extends MapperFrame{
 	public void draw()
 	{
 		super.draw();
-		
-		if (this.selected != null)
-		{
-			
-		}
+
+		// I don't think I need this. I think I was using this to test out functionality to begin with
+//		if (this.selected != null)
+//		{
+//			
+//		}
 
 	}
 
