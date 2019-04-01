@@ -73,8 +73,17 @@ public class SelectionForceDirected extends GraphFrame{
 			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
 			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, 900, 0);
 			*/
-			this.unmapX = super.unmapX(this.unmapX );
-			this.unmapY = super.unmapY(this.unmapY );
+
+			
+			this.unmapX = super.unmapX(this.unmapX + papplet.mouseX);
+			this.unmapY = super.unmapY(this.unmapY + papplet.mouseY);
+
+//			this.unmapX = PApplet.constrain(this.unmapX, this.u0, this.u0 + this.w);
+//			this.unmapY = PApplet.constrain(this.unmapY, this.v0, this.v0 + this.h);
+
+
+			
+			
 			System.out.println("X:" + this.unmapX);
 			System.out.println("Y:" + this.unmapY);
 //			this.unmapX = super.mapX(this.unmapX );
