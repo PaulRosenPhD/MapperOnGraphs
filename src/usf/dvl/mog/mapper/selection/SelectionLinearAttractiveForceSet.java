@@ -24,19 +24,37 @@ public class SelectionLinearAttractiveForceSet extends usf.dvl.graph.layout.forc
 		super( _fdl, _centroidX, _centroidY );
 	}
 	
-//	SelectionLinearAttractiveForceSet( ForceDirectedLayout _fdl, float _centroidX, float _centroidY, ArrayList<ForceDirectedLayoutVertex> cc)
-//	{
-//		super( _fdl, _centroidX, _centroidY);
-//		// x and y of selected point
-//		this.centroidX = _centroidX;
-//		this.centroidY = _centroidY;
-//		this.cc = cc;
-//		
-//		for (ForceDirectedLayoutVertex g : cc)
-//		{
-//			super.add( new LinearAttractiveForce( g) );
-//		}
-//	}
+	SelectionLinearAttractiveForceSet( ForceDirectedLayout _fdl, float _centroidX, float _centroidY, ArrayList<ForceDirectedLayoutVertex> cc)
+	{
+		super( _fdl, _centroidX, _centroidY);
+//		super.fdl = _fdl;
+		// x and y of selected point
+		this.centroidX = _centroidX;
+		this.centroidY = _centroidY;
+		this.cc = cc;
+		
+		
+		for (ForceDirectedLayoutVertex g : cc)
+		{
+			add( new LinearAttractiveForce( g) );
+		}
+	}
+	SelectionLinearAttractiveForceSet( ForceDirectedLayout _fdl, float _centroidX, float _centroidY, ArrayList<ForceDirectedLayoutVertex> cc,
+			ForceDirectedLayoutVertex source)
+	{
+		super( _fdl, _centroidX, _centroidY);
+//		super.fdl = _fdl;
+		// x and y of selected point
+		this.centroidX = _centroidX;
+		this.centroidY = _centroidY;
+		this.cc = cc;
+		
+		
+		for (ForceDirectedLayoutVertex g : cc)
+		{
+			super.add( new LinearAttractiveForce( source) );
+		}
+	}
 	
 	
 	

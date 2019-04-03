@@ -9,9 +9,11 @@ import usf.dvl.graph.layout.forcedirected.ForceDirectedLayout;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
 import usf.dvl.graph.layout.forcedirected.force.BasicForce;
+import usf.dvl.graph.layout.forcedirected.force.BasicForce.PairwiseForce;
 import usf.dvl.graph.layout.forcedirected.force.LinearAttractiveForceSet;
 import usf.dvl.graph.layout.forcedirected.force.SpringAttractiveForceSet;
 import usf.dvl.mog.frames.GraphFrame;
+import usf.dvl.graph.layout.forcedirected.force.BasicForce;
 
 public class SelectionForceDirected extends GraphFrame{
 
@@ -26,18 +28,21 @@ public class SelectionForceDirected extends GraphFrame{
 //	protected Graph _g = new Graph();
 	protected ArrayList<GraphVertex> cc = new ArrayList<GraphVertex>();
 	protected ArrayList<ForceDirectedLayoutVertex> verts =  new ArrayList<ForceDirectedLayoutVertex>();
+	
+	// made a new force set
+	private SpringAttractiveForceSet Springs = new SpringAttractiveForceSet(this.fdl, 15);
 //	protected LinearAttractiveForceSet forceSLA = null;
 //	protected SpringAttractiveForceSet forceSAF = null;
 //	protected ForceDirectedLayout selectedFDL = null;
 	
 	public SelectionForceDirected(PApplet p, Graph _g ) {
 		super( p, _g );
+//		verts = this.fdl.getLayoutVerts();
 		
 	}
 	
 	//public void receiveSF( SelectionFrame SF ) { this.SF = SF; }
 	
-	// I don't know why I only need to map Y
 	@Override
 	public void update()
 	{
@@ -47,47 +52,17 @@ public class SelectionForceDirected extends GraphFrame{
 		super.update();
 		if ( this.selectedPoint >= 0 )
 		{
-//			this.unmapX = super.mapX(this.unmapX );
-//			this.unmapY = super.mapY(this.unmapY );
-			
-//			this.unmapX = super.mapX(this.unmapX + this._otheru0);
-//			this.unmapY = super.mapY(this.unmapY + this._otherv0);
-//			
-//			this.unmapX = super.mapX(this.unmapX - this._otheru0);
-//			this.unmapY = super.mapY(this.unmapY - this._otherv0);			
-			
-//			this.unmapX = this.unmapX(this.unmapX - this.u0);
-//			this.unmapY = this.unmapY(this.unmapY - this.v0);
-//			System.out.println("Before: " + this.unmapX );
-			
-			// solved this problem using hard-coded values
-			// gonna have to clean this up once I figure out if Dr. Rosen mapped the values or not
-			
 
-//			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 705, 1600);
-//			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, this.u0, this.u0 + this.w);
-//			System.out.println(this.unmapX);
-//			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, this.v0 + this.h, this.v0);
-			
 			// this combination works: map using the frame dimensions and unmap to the graph space
-			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
-			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, 900, 0);
+//			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
+//			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, 900, 0);
 			
-
+			// using the dimensions of the frame itself
+			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, this.w);
+			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, this.h, 0);			
 			
-			this.unmapX = super.unmapX(this.unmapX /*+ papplet.mouseX*/);
-			this.unmapY = super.unmapY(this.unmapY /*+ papplet.mouseY*/);
-
-//			this.unmapX = PApplet.constrain(this.unmapX, this.u0, this.u0 + this.w);
-//			this.unmapY = PApplet.constrain(this.unmapY, this.v0, this.v0 + this.h);
-
-
-			
-			
-			System.out.println("X:" + this.unmapX);
-			System.out.println("Y:" + this.unmapY);
-//			this.unmapX = super.mapX(this.unmapX );
-//			this.unmapY = super.mapY(this.unmapY );
+			this.unmapX = super.unmapX( this.unmapX );
+			this.unmapY = super.unmapY( this.unmapY );
 
 			
 //			System.out.println(super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY());
@@ -109,6 +84,19 @@ public class SelectionForceDirected extends GraphFrame{
 //			System.out.println(this.unmapX);
 			//System.out.println("Before " + super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY() );
 			super.fdl.setVertexPosition(this.selectedPoint, this.unmapX, this.unmapY);
+			
+			if ( !this.verts.isEmpty() )
+			{
+			
+//				fdl.addForces( new SelectionLinearAttractiveForceSet(this.fdl, this.unmapX, this.unmapY, this.verts) );
+				for (ForceDirectedLayoutVertex g : verts )
+				{
+//					fdl.addForce( new CoverPairwise( this.fdl.getVertex(this.selectedPoint), g) );
+					fdl.addForce( Springs.addSpring( fdl.getVertex(this.selectedPoint), g) );
+				}
+				
+			}
+			
 			//System.out.println("After " + super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY() );
 //			System.out.println(this.unmapX + " " + this.unmapY);
 			

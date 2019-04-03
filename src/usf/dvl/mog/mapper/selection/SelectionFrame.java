@@ -51,7 +51,7 @@ public class SelectionFrame extends MapperFrame{
 //	private Graph g = null;
 	
 	protected MapperVertex selected = null; 
-	protected Set<GraphVertex> _cc = null;
+//	protected Set<GraphVertex> _cc = null;
 	protected ArrayList<GraphVertex> cc = new ArrayList<GraphVertex>();
 	protected SelectionForceDirected SFD = null;
 	
@@ -78,8 +78,8 @@ public class SelectionFrame extends MapperFrame{
 		{
 //			PAppletMOG.selectedFunction = this;
 			selected = (Mapper.MapperVertex)super.mapperG.nodes.get( super.fdl.getSelectedPoint() );
-			_cc = selected.cc;
-			super.fdl.fdl.getVertices();
+//			_cc = selected.cc;
+			//super.fdl.fdl.getVertices();
 			
 			
 //			ArrayList<GraphVertex> adj = (ArrayList<GraphVertex>)this.selected.getAdjacentVertices();
@@ -90,16 +90,36 @@ public class SelectionFrame extends MapperFrame{
 //				cc.add(_v);
 //			}
 			cc.clear();
-			cc.addAll( _cc );
+			cc.addAll( selected.cc );
 			this.SFD.cc = this.cc;
 			
+
 			// this doesn't work the way it's supposed to 20190327
-//			for ( GraphVertex g : cc)
-//			{
-//				// rename
-//
-//				verts.add( super.fdl.fdl.getVertex( graph.getVertexIndex( g) ) );
-//			}
+//			System.out.println( cc.size() );
+
+//			ArrayList<ForceDirectedLayoutVertex> layoutverts = super.fdl.fdl.getLayoutVerts();
+			verts.clear();
+			ArrayList<ForceDirectedLayoutVertex> layoutverts = SFD.fdl.getLayoutVerts();
+			//System.out.println(layoutverts.size());
+
+			for ( GraphVertex g : cc)
+			{
+				// rename
+
+				try
+				{
+//					verts.add( super.fdl.fdl.getVertex( graph.getVertexIndex( g) ) );
+					verts.add(layoutverts.get( graph.getVertexIndex(g )) );
+					
+				}
+				catch(Exception e)
+				{
+				}
+			}
+			this.SFD.verts = this.verts;
+//			System.out.println(verts.size());
+			
+			//System.out.println(i);
 //			this.SFD.verts = this.verts;
 			 //for all, try and make a different color 
 //			for (GraphVertex g : selected.cc)
@@ -120,13 +140,9 @@ public class SelectionFrame extends MapperFrame{
 //			if ( this.unmapY < super.fdl.getV0() ) 						   { this.unmapY = super.fdl.getV0(); }
 //			if ( this.unmapY > super.fdl.getV0() + super.fdl.getHeight() ) { this.unmapY = super.fdl.getV0() + super.fdl.getHeight(); }
 			
-//			System.out.println(this.unmapX + " " + this.unmapY);
-
-			this.SFD.unmapX = this.unmapX;   /*super.fdl.unmapX(papplet.mouseX-u0);*/
-			this.SFD.unmapY = this.unmapY; /* super.fdl.unmapY(papplet.mouseY-v0); */
+			this.SFD.unmapX = this.unmapX;   
+			this.SFD.unmapY = this.unmapY; 
 			
-//			System.out.println(papplet.mouseX + " " + papplet.mouseY);
-//			System.out.println(this.u0 + " " + this.v0 + " " + this.h + " " + this.w);
 			
 			// this gets min values, not the vertex position
 //			super.fdl.getU0();
