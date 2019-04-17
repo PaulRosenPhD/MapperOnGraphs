@@ -261,14 +261,6 @@ public class MapperFrame extends DMultiFrame<DFrame> {
 //			System.out.println(fdl.getSelectedPoint() );
 			selected = true;
 			
-//			Mapper.MapperVertex vertex = (Mapper.MapperVertex)mapperG.nodes.get( fdl.getSelectedPoint() );
-//			Graph graph = new Graph();
-			
-			// this doesn't work
-//			graph.nodes = (ArrayList<GraphVertex>)vertex.cc;
-			
-			//ForceDirectedLayout FDL = new ForceDirectedLayout(graph, 100, 100);
-			
 		}
 
 

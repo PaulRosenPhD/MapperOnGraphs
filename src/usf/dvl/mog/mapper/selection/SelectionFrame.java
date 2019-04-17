@@ -39,16 +39,6 @@ import processing.core.PApplet;
 // extends MapperFrame or has function create a new one ?
 public class SelectionFrame extends MapperFrame{
 
-//	public GraphVertex selected = null;
-//	private ArrayList<GraphVertex> nodes = null;
-//	private ArrayList<GraphEdge> edges = null;
-//	private ArrayList<GraphVertex> similarNodes = null;
-//	private float averageX, averageY;
-//	private HashMap <GraphVertex, GraphEdge> mapper = new HashMap<GraphVertex, GraphEdge>();
-//	
-//	
-	
-//	private Graph g = null;
 	
 	protected MapperVertex selected = null; 
 //	protected Set<GraphVertex> _cc = null;
@@ -74,183 +64,110 @@ public class SelectionFrame extends MapperFrame{
 	{
 		super.update();
 		
-		if ( super.fdl.getSelectedPoint() >= 0 )
+//		System.out.println(super.mapperG.getNodeCount());
+		for (int i = 0; i < super.mapperG.getNodeCount(); i++)
 		{
-//			PAppletMOG.selectedFunction = this;
-			selected = (Mapper.MapperVertex)super.mapperG.nodes.get( super.fdl.getSelectedPoint() );
-//			_cc = selected.cc;
-			//super.fdl.fdl.getVertices();
-			
-			
-//			ArrayList<GraphVertex> adj = (ArrayList<GraphVertex>)this.selected.getAdjacentVertices();
-			
-			// okay I guess this doesn't work
-//			for (GraphVertex _v : _cc )
+			nodeSelection(i);
+		}
+		
+//		if ( super.fdl.getSelectedPoint() >= 0 )
+//		{
+//			selected = (Mapper.MapperVertex)super.mapperG.nodes.get( super.fdl.getSelectedPoint() );
+//
+//			cc.clear();
+//			cc.addAll( selected.cc );
+//			this.SFD.cc = this.cc;
+//
+//			verts.clear();
+//			ArrayList<ForceDirectedLayoutVertex> layoutverts = SFD.fdl.getLayoutVerts();
+//
+//			for ( GraphVertex g : cc)
 //			{
-//				cc.add(_v);
-//			}
-			cc.clear();
-			cc.addAll( selected.cc );
-			this.SFD.cc = this.cc;
-			
-
-			// this doesn't work the way it's supposed to 20190327
-//			System.out.println( cc.size() );
-
-//			ArrayList<ForceDirectedLayoutVertex> layoutverts = super.fdl.fdl.getLayoutVerts();
-			verts.clear();
-			ArrayList<ForceDirectedLayoutVertex> layoutverts = SFD.fdl.getLayoutVerts();
-			//System.out.println(layoutverts.size());
-
-			for ( GraphVertex g : cc)
-			{
-				// rename
-
-				try
-				{
-//					verts.add( super.fdl.fdl.getVertex( graph.getVertexIndex( g) ) );
-					verts.add(layoutverts.get( graph.getVertexIndex(g )) );
-					
-				}
-				catch(Exception e)
-				{
-				}
-			}
-			this.SFD.verts = this.verts;
-//			System.out.println(verts.size());
-			
-			//System.out.println(i);
-//			this.SFD.verts = this.verts;
-			 //for all, try and make a different color 
-//			for (GraphVertex g : selected.cc)
-//			{
-//				if ( g != null)
+//				try
 //				{
-//					this.cc.add(g);
+//					verts.add(layoutverts.get( graph.getVertexIndex(g )) );
 //				}
-//			}
-//			graph.nodes = (ArrayList<GraphVertex>)selected.cc;
-			
-			// this works...sort of
-			this.unmapX = PApplet.constrain( papplet.mouseX, super.fdl.getU0(), super.fdl.getU0() + super.fdl.getWidth() );
-			this.unmapY = PApplet.constrain( papplet.mouseY, super.fdl.getV0(), super.fdl.getV0() + super.fdl.getHeight() );
-
-//			if ( this.unmapX < super.fdl.getU0() ) 						   { this.unmapX = super.fdl.getU0(); }
-//			if ( this.unmapX > super.fdl.getU0() + super.fdl.getWidth() )  { this.unmapX = super.fdl.getU0() + super.fdl.getWidth(); }
-//			if ( this.unmapY < super.fdl.getV0() ) 						   { this.unmapY = super.fdl.getV0(); }
-//			if ( this.unmapY > super.fdl.getV0() + super.fdl.getHeight() ) { this.unmapY = super.fdl.getV0() + super.fdl.getHeight(); }
-			
-			this.SFD.unmapX = this.unmapX;   
-			this.SFD.unmapY = this.unmapY; 
-			
-			
-			// this gets min values, not the vertex position
-//			super.fdl.getU0();
-//			super.fdl.getV0();
-//			super.fdl.getWidth();
-//			super.fdl.getHeight();
-			
-//			System.out.println(super.fdl.fdl.getVertex(super.fdl.getSelectedPoint() ).getPositionX() + " " + super.fdl.fdl.getVertex(super.fdl.getSelectedPoint() ).getPositionY() );
-			
-//			for (ForceDirectedLayout)
-			
-			// broke this because I changed unmap back to protected on FDL Frame
-//			this.SFD.unmapX =  super.fdl.unmapX(papplet.mouseX-u0);
-//			this.SFD.unmapY =  super.fdl.unmapY(papplet.mouseY-v0); 
-//			System.out.println(papplet.mouseX + " " + super.fdl.getU0() + " " + (super.fdl.getWidth()) );
-			this.SFD._otheru0 = super.fdl.getU0();
-			this.SFD._otherv0 = super.fdl.getV0();
-			this.SFD._otherW = super.fdl.getU0() + super.fdl.getWidth();
-			this.SFD._otherH = super.fdl.getV0() + super.fdl.getHeight();
-			
-			
-			this.SFD.selectedPoint = super.fdl.getSelectedPoint();
-			
-//			if ( this.SFD.forceSLA != null ) 
-//			{
-////				super.fdl.fdl.addForces( this.SFD.forceSLA ); 
-////				System.out.println("Should've worked");
+//				catch(Exception e) { e.printStackTrace(); }
 //
 //			}
+//			this.SFD.verts = this.verts;
+//
+//			this.unmapX = PApplet.constrain( papplet.mouseX, super.fdl.getU0(), super.fdl.getU0() + super.fdl.getWidth() );
+//			this.unmapY = PApplet.constrain( papplet.mouseY, super.fdl.getV0(), super.fdl.getV0() + super.fdl.getHeight() );
+//
+//
+//			
+//			this.SFD.unmapX = this.unmapX;   
+//			this.SFD.unmapY = this.unmapY; 
+//			
+//			
+//			// this gets min values, not the vertex position
+////			super.fdl.getU0();
+////			super.fdl.getV0();
+////			super.fdl.getWidth();
+////			super.fdl.getHeight();
+//			
+//			this.SFD._otheru0 = super.fdl.getU0();
+//			this.SFD._otherv0 = super.fdl.getV0();
+//			this.SFD._otherW = super.fdl.getU0() + super.fdl.getWidth();
+//			this.SFD._otherH = super.fdl.getV0() + super.fdl.getHeight();
+//			
+//			
+//			this.SFD.selectedPoint = super.fdl.getSelectedPoint();
+//			
+//		}
+	}
+	
+	public void nodeSelection(int i)
+	{
+		selected = null;
+		selected = (Mapper.MapperVertex)super.mapperG.nodes.get( i );
+		System.out.println(i);
+
+		cc.clear();
+		cc.addAll( selected.cc );
+		this.SFD.cc = this.cc;
+
+		verts.clear();
+		ArrayList<ForceDirectedLayoutVertex> layoutverts = SFD.fdl.getLayoutVerts();
+
+		for ( GraphVertex g : cc)
+		{
+			try
+			{
+				verts.add(layoutverts.get( graph.getVertexIndex(g )) );
+			}
+			catch(Exception e) { e.printStackTrace(); }
 
 		}
+		this.SFD.verts = this.verts;
+
+		this.unmapX = PApplet.constrain( papplet.mouseX, super.fdl.getU0(), super.fdl.getU0() + super.fdl.getWidth() );
+		this.unmapY = PApplet.constrain( papplet.mouseY, super.fdl.getV0(), super.fdl.getV0() + super.fdl.getHeight() );
+
+
+		
+		this.SFD.unmapX = this.unmapX;   
+		this.SFD.unmapY = this.unmapY; 
+		
+		
+		// this gets min values, not the vertex position
+//		super.fdl.getU0();
+//		super.fdl.getV0();
+//		super.fdl.getWidth();
+//		super.fdl.getHeight();
+		
+		this.SFD._otheru0 = super.fdl.getU0();
+		this.SFD._otherv0 = super.fdl.getV0();
+		this.SFD._otherW = super.fdl.getU0() + super.fdl.getWidth();
+		this.SFD._otherH = super.fdl.getV0() + super.fdl.getHeight();
+		
+		
+		this.SFD.selectedPoint = i;
+//		this.selected = null;
 	}
 	
 	@Override
-	public void draw()
-	{
-		super.draw();
-
-		// I don't think I need this. I think I was using this to test out functionality to begin with
-//		if (this.selected != null)
-//		{
-//			
-//		}
-
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	// Graph constructor already contains nodes and edges
-	public SelectionFrame(PApplet p, Graph _g) 
-	{
-		super()
-		
-		this.nodes = _g.nodes;
-		this.edges = _g.edges;
-		this.g = _g;
-		
-		this.selected = PAppletMOG.selectedVertex;
-
-		//if (PAppletMOG.selectedVertex != null) { System.out.println("Selection"); }
-//		findSimilarNodes();
-		
-	}
-	
-	public SelectionFrame(PAppletMog.selectedVertex selected)
-	{
-		
-	}
-	
-	
-	public SelectionFrame(ArrayList<GraphVertex> nodes)
-	{
-		this.nodes = nodes;
-		// for all nodes in list, use FDL forces
-	}
-	public SelectionFrame(ArrayList<GraphEdge> edges)
-	{
-		this.edges = edges;
-	}
-	
-	
-
-	public void setSelected(GraphVertex selected) { this.selected = selected; }
-	public void setNodes(ArrayList<GraphVertex> nodes) { this.nodes = nodes; }
-	public void setEdges(ArrayList<GraphEdge> edges ) { this.edges = edges; }
-	public float getAverageX() { return this.averageX; }
-	public float getAverageY() { return this.averageY; }
-	
-	public void findSimilarNodes()
-	{
-		if ( nodes == null || edges == null ) { return; }
-		
-		for (GraphVertex node : nodes)
-		{
-			// if node type is similar, add
-			similarNodes.add(node);
-		}
-	}
-	*/
+	public void draw() { super.draw(); }
 	
 }

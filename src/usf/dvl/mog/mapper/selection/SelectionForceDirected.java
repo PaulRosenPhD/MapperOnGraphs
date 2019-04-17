@@ -31,13 +31,9 @@ public class SelectionForceDirected extends GraphFrame{
 	
 	// made a new force set
 	private SpringAttractiveForceSet Springs = new SpringAttractiveForceSet(this.fdl, 1);
-//	protected LinearAttractiveForceSet forceSLA = null;
-//	protected SpringAttractiveForceSet forceSAF = null;
-//	protected ForceDirectedLayout selectedFDL = null;
 	
 	public SelectionForceDirected(PApplet p, Graph _g ) {
 		super( p, _g );
-//		verts = this.fdl.getLayoutVerts();
 		
 	}
 	
@@ -46,8 +42,7 @@ public class SelectionForceDirected extends GraphFrame{
 	@Override
 	public void update()
 	{
-		// this.u0 is correct for this layout
-//		System.out.println(papplet.mouseX + " " + this.u0 + " " + ( this.u0 + this.w) );
+
 		
 		super.update();
 		if ( this.selectedPoint >= 0 )
@@ -64,30 +59,12 @@ public class SelectionForceDirected extends GraphFrame{
 			this.unmapX = super.unmapX( this.unmapX );
 			this.unmapY = super.unmapY( this.unmapY );
 
-			
-//			System.out.println(super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY());
-//			System.out.println("X");
-//			System.out.println(this.unmapX);
-
-//			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW,
-//					this.u0, this.w);
-//			System.out.println(this.unmapX);
-			
-//			System.out.println("Y");
-//			System.out.println(this.unmapY);
-//			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0,
-//					this.h, this.v0);
-//			System.out.println(this.unmapY);
-//			System.out.println("Entered");
-			
-			// unmap x and y before setting
-//			System.out.println(this.unmapX);
-			//System.out.println("Before " + super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY() );
-			super.fdl.setVertexPosition(this.selectedPoint, this.unmapX, this.unmapY);
+			// disabled because I don't need it to track my mouse position
+//			super.fdl.setVertexPosition(this.selectedPoint, this.unmapX, this.unmapY);
 			
 			if ( !this.verts.isEmpty() )
 			{
-			
+//				System.out.println("Adding " + this.selectedPoint );
 //				fdl.addForces( new SelectionLinearAttractiveForceSet(this.fdl, this.unmapX, this.unmapY, this.verts) );
 				for (ForceDirectedLayoutVertex g : verts )
 				{
@@ -96,34 +73,6 @@ public class SelectionForceDirected extends GraphFrame{
 				}
 				
 			}
-			
-			//System.out.println("After " + super.fdl.getVertex(this.selectedPoint).getPositionX() + " " + super.fdl.getVertex(this.selectedPoint).getPositionY() );
-//			System.out.println(this.unmapX + " " + this.unmapY);
-			
-//			System.out.println("Exited");
-			
-			
-//			_g.nodes = this.cc;
-//			
-//			
-//			this.selectedFDL = new ForceDirectedLayout(_g, this.w, this.h);
-//			
-//			this.forceSLA = new LinearAttractiveForceSet(this.selectedFDL, this.unmapX, this.unmapY, 999999f);
-//
-//			
-//			this.forceSAF = new SpringAttractiveForceSet( this.selectedFDL);
-//			// why doesn't this work ?
-//			super.fdl.addForces( this.forceSLA );
-//			super.fdl.addForces( this.forceSAF );
-//			super.forceSLA.addAll( this.forceSLA );
-//			super.forceSAF.addAll( this.forceSAF );
-//			super.forceSLA.addAll(this.selectedPoint, this.forceSLA);
-//			super.forceSAF.addAll(this.selectedPoint, this.forceSAF);
-			
-//			for ( GraphVertex _v : this.cc)
-//			{
-//				super.fdl.setVertexPosition( g.getVertexIndex( _v), this.unmapX, this.unmapY);
-//			}
 
 		}
 		
@@ -131,23 +80,7 @@ public class SelectionForceDirected extends GraphFrame{
 	}
 	
 	@Override
-	public void draw()
-	{
-		super.draw();
-		
-		
-	}
+	public void draw() { super.draw(); }
 	
-	
-//	public void applySpringForce( GraphVertex center )
-//	{
-//		ArrayList<GraphVertex> adj = (ArrayList<GraphVertex>) center.getAdjacentVertices();
-//		float RESTING_LENGTH = 1.0f;   
-//		float SPRING_SCALE   = 0.05f; 
-//		float REPULSE_SCALE  = 450.0f;
-//		float TIME_STEP      = 0.30f;
-//		
-//		float force = SPRING_SCALE;
-//	}
 
 }
