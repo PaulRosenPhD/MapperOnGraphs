@@ -30,7 +30,7 @@ public class SelectionForceDirected extends GraphFrame{
 	protected ArrayList<ForceDirectedLayoutVertex> verts =  new ArrayList<ForceDirectedLayoutVertex>();
 	
 	// made a new force set
-	private SpringAttractiveForceSet Springs = new SpringAttractiveForceSet(this.fdl, 15);
+	private SpringAttractiveForceSet Springs = new SpringAttractiveForceSet(this.fdl, 1);
 //	protected LinearAttractiveForceSet forceSLA = null;
 //	protected SpringAttractiveForceSet forceSAF = null;
 //	protected ForceDirectedLayout selectedFDL = null;
