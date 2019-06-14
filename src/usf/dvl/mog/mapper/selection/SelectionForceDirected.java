@@ -64,7 +64,7 @@ public class SelectionForceDirected extends GraphFrame{
 			
 			if ( !this.verts.isEmpty() )
 			{
-//				System.out.println("Adding " + this.selectedPoint );
+				System.out.println("Adding " + this.selectedPoint );
 //				fdl.addForces( new SelectionLinearAttractiveForceSet(this.fdl, this.unmapX, this.unmapY, this.verts) );
 				for (ForceDirectedLayoutVertex g : verts )
 				{

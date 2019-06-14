@@ -122,7 +122,7 @@ public class SelectionFrame extends MapperFrame{
 	{
 		selected = null;
 		selected = (Mapper.MapperVertex)super.mapperG.nodes.get( i );
-		System.out.println(i);
+//		System.out.println(i);
 
 		cc.clear();
 		cc.addAll( selected.cc );
