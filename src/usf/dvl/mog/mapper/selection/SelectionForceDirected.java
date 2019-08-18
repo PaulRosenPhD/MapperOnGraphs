@@ -64,14 +64,19 @@ public class SelectionForceDirected extends GraphFrame{
 	public void update()
 	{
 		super.update();
-		this.selectedPoint = -1;
 		
 		if ( PAppletMOG.selectedVertex != null )
 		{
 			this.selectedPoint = this.selectedMapper.getFDL().getSelectedPoint();
-			this.selectedMapperVertex = (MapperVertex) this.selectedMapper.getMapperG().nodes.get(this.selectedPoint);
-		}
+			
+			// not sure if a race condition is causing an exception to be thrown
+			if ( this.selectedPoint >= 0 )
+			{
+				this.selectedMapperVertex = (MapperVertex) this.selectedMapper.getMapperG().nodes.get(this.selectedPoint);
 		
+			}
+		}
+
 		// will probably need this statement
 //		if (selectedMapper0 != null && selectedMapper1 != null)
 //		{
@@ -82,17 +87,31 @@ public class SelectionForceDirected extends GraphFrame{
 
 		if ( this.selectedPoint >= 0 )
 		{
-
+			this.cc.clear();
+			this.cc.addAll( this.selectedMapperVertex.cc );
+			ArrayList<ForceDirectedLayoutVertex> layoutverts = this.fdl.getLayoutVerts();
+			
+			for ( GraphVertex g : this.cc )
+			{
+				try
+				{
+					this.verts.add(layoutverts.get( selectedMapper.getGraph().getVertexIndex(g )) );
+				}
+				catch(Exception e) { e.printStackTrace(); }
+			}
+			
+			calculateMapMouse();
 			// this combination works: map using the frame dimensions and unmap to the graph space
 //			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, 895);
 //			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, 900, 0);
 			
 			// using the dimensions of the frame itself
-			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, this.w);
-			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, this.h, 0);			
-			
-			this.unmapX = super.unmapX( this.unmapX );
-			this.unmapY = super.unmapY( this.unmapY );
+			// commented because I wrote a function for it at the bottom
+//			this.unmapX = PApplet.map(this.unmapX, this._otheru0, this._otherW, 0, this.w);
+//			this.unmapY = PApplet.map(this.unmapY, this._otherH, this._otherv0, this.h, 0);			
+//			
+//			this.unmapX = super.unmapX( this.unmapX );
+//			this.unmapY = super.unmapY( this.unmapY );
 
 			// disabled because I don't need it to track my mouse position
 //			super.fdl.setVertexPosition(this.selectedPoint, this.unmapX, this.unmapY);
@@ -112,10 +131,26 @@ public class SelectionForceDirected extends GraphFrame{
 		}
 		
 		this.selectedPoint = -1;
+		this.selectedMapperVertex = null;
 	}
 	
 	@Override
 	public void draw() { super.draw(); }
 	
-
+	public void calculateMapMouse()
+	{
+		float mouseX = PApplet.constrain( papplet.mouseX, this.selectedMapper.getFDL().getU0(), this.selectedMapper.getFDL().getU0() + super.fdl.getWidth() );
+		float mouseY = PApplet.constrain( papplet.mouseY, this.selectedMapper.getFDL().getV0(), this.selectedMapper.getFDL().getV0() + super.fdl.getHeight() );
+		
+		float mapperU0 = this.selectedMapper.getU0();
+		float mapperV0 = this.selectedMapper.getV0();
+		float mapperW = this.selectedMapper.getU0() + this.selectedMapper.getWidth();
+		float mapperH = this.selectedMapper.getV0() + this.selectedMapper.getHeight();
+		
+		this.unmapX = PApplet.map(mouseX, mapperU0, mapperW, 0, this.w);
+		this.unmapY = PApplet.map(mouseY, mapperH, mapperV0, this.h, 0);			
+		
+		this.unmapX = super.unmapX( this.unmapX );
+		this.unmapY = super.unmapY( this.unmapY );
+	}
 }

@@ -94,6 +94,7 @@ public class MapperFrame extends DMultiFrame<DFrame> {
 
 	public ForceDirectedLayoutFrame getFDL() { return this.fdl; }
 	public Mapper getMapperG() { return this.mapperG; }
+	public Graph getGraph() { return this.graph; }
 
 	protected class FDL extends ForceDirectedLayoutFrame {
 
