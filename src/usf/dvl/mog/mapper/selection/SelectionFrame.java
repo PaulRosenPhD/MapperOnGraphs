@@ -36,7 +36,22 @@ import java.util.Set;
 import processing.core.PApplet;
 
 
-// extends MapperFrame or has function create a new one ?
+// this class is not used anymore
+
+
+
+
+
+
+
+
+
+
+
+
+//
+
+
 public class SelectionFrame extends MapperFrame{
 
 	
@@ -55,7 +70,7 @@ public class SelectionFrame extends MapperFrame{
 		super(p,_graph,_filter, resolution, eps );
 		
 		this.SFD = SFD;
-		//this.SFD.receiveSF( this );
+//		this.SFD.receiveSF( this );
 	}
 	
 	

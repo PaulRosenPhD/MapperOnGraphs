@@ -18,6 +18,7 @@
 package usf.dvl.mog.frames;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import processing.core.PApplet;
 import usf.dvl.draw.DColorScheme;
@@ -40,7 +41,10 @@ public class MainFrame extends DMultiFrame<DObject> {
 	private GraphData gdata;
 	// right side of the main screen
 	private SelectionForceDirected fdd;
-	private ArrayList<SelectionFrame> mapper = new ArrayList<SelectionFrame>();
+	
+	private ArrayList<MapperFrame> mapper = new ArrayList<MapperFrame>();
+	protected MapperFrame selectedMapper = null;
+
 	private OptionListFrame selBoxes0, selBoxes1;
 	private CheckableBox eqlBox0, eqlBox1;
 	private CheckableBox resetBox0, resetBox1;
@@ -53,31 +57,40 @@ public class MainFrame extends DMultiFrame<DObject> {
 	public void setData( GraphData _gdata ) {
 		gdata = _gdata;
 
-		fdd = new SelectionForceDirected( papplet, gdata );
-		addFrame(fdd);
+		// I dunno maybe I needed that ?
+//		fdd = new SelectionForceDirected( papplet, gdata );
+//		addFrame(fdd);
 
-		
+//		fdd = new SelectionForceDirected( papplet, gdata, mapper );
+//		addFrame(fdd);
 		mapper.clear();
 
-//		mapper.add( new MapperFrame( papplet, gdata, new FilterDensity( gdata, 2 ), 5, 0.1f ) );
-//		mapper.add( new MapperFrame( papplet, gdata, new FilterAGD( gdata ), 3, 0.1f ) );
-//		mapper.add( new MapperFrame( papplet, gdata, new FilterEccentricity( gdata, 2), 5, 0.1f ) );
-//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 0), 5, 0.2f ) );
-//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 1), 5, 0.2f ) );
-//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 2), 5, 0.2f ) );
-//		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 3), 5, 0.2f ) );
-		//mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 4), 5, 0.2f ) );
-		//mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 5), 5, 0.2f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterDensity( gdata, 2 ), 5, 0.1f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterAGD( gdata ), 3, 0.1f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterEccentricity( gdata, 2), 5, 0.1f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 0), 5, 0.2f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 1), 5, 0.2f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 2), 5, 0.2f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 3), 5, 0.2f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 4), 5, 0.2f ) );
+		mapper.add( new MapperFrame( papplet, gdata, new FilterEigenFunctions( gdata, 5), 5, 0.2f ) );
 
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterDensity( gdata, 2 ), 5, 0.1f, fdd ) );
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterAGD( gdata ), 3, 0.1f, fdd) );
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterEccentricity( gdata, 2), 5, 0.1f, fdd ) );
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 0), 5, 0.2f, fdd ) );
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 1), 5, 0.2f, fdd ) );
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 2), 5, 0.2f, fdd ) );
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 3), 5, 0.2f, fdd ) );		
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 4), 5, 0.2f, fdd ) );
-		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 5), 5, 0.2f, fdd ) );
+//		fdd = new SelectionForceDirected( papplet, gdata,  )
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterDensity( gdata, 2 ), 5, 0.1f, fdd ) );
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterAGD( gdata ), 3, 0.1f, fdd) );
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterEccentricity( gdata, 2), 5, 0.1f, fdd ) );
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 0), 5, 0.2f, fdd ) );
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 1), 5, 0.2f, fdd ) );
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 2), 5, 0.2f, fdd ) );
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 3), 5, 0.2f, fdd ) );		
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 4), 5, 0.2f, fdd ) );
+//		mapper.add( new SelectionFrame( papplet, gdata, new FilterEigenFunctions( gdata, 5), 5, 0.2f, fdd ) );
+		
+		
+		// why does adding it here make a difference ?
+		fdd = new SelectionForceDirected( papplet, gdata, mapper );
+		addFrame(fdd);
+		
 		for( int i = 0; i < mapper.size(); i++ ){
 			mapper.get(i).setColormap( PAppletMOG.colmaps.get(i%PAppletMOG.colmaps.size()) );
 		}
@@ -85,7 +98,7 @@ public class MainFrame extends DMultiFrame<DObject> {
 		addFrames( mapper.get(0) );
 		addFrames( mapper.get(1) );
 		// me 
-		//addFrames( mapper.get(2));
+//		addFrames( mapper.get(2));
 
 		DColorScheme selCol = DColorScheme.Default.createFillStrokeOnly( papplet.color(100),  papplet.color(0), 2 );
 		DColorScheme selTxt = DColorScheme.Default.createFillStrokeOnly( papplet.color(255),  papplet.color(0), 1 );
@@ -157,13 +170,18 @@ public class MainFrame extends DMultiFrame<DObject> {
 		// this is the right side of the main screen
 		fdd.setPosition( 705, 0, getWidth()-705, h );
 		
-		SelectionFrame mframe0 = mapper.get( selBoxes0.getCurrentSelection() );
-		mframe0.setPosition( 5, 5, 590, h/2-10 );
+		MapperFrame mframe0 = mapper.get( selBoxes0.getCurrentSelection() );
+		mframe0.setPosition( 5, 5, 590, h-10 );
 		setFrame( 1, mframe0 );
 		
-		SelectionFrame mframe1 = mapper.get( selBoxes1.getCurrentSelection() );
-		mframe1.setPosition( 5, h/2+5, 590, h/2-10 );
-		setFrame( 2, mframe1 );
+//		MapperFrame mframe1 = mapper.get( selBoxes1.getCurrentSelection() );
+//		mframe1.setPosition( 5, h/2+5, 590, h/2-10 );
+//		setFrame( 2, mframe1 );
+		
+		// Howard's changes
+		this.fdd.setSelectedMapper0( mframe0 );
+//		this.fdd.setSelectedMapper1( mframe1 );
+		// end Howard's changes
 		
 		selBoxes0.enableAllOptions();
 		selBoxes0.disableOption( selBoxes1.getCurrentSelection() );
@@ -171,16 +189,16 @@ public class MainFrame extends DMultiFrame<DObject> {
 		eqlBox0.setPosition( 595, 240, 105, 20);
 		eqlBox0.setValue( mframe0.isEqualized() );
 
-		selBoxes1.enableAllOptions();
-		selBoxes1.disableOption( selBoxes0.getCurrentSelection() );
-		selBoxes1.setPosition( 595, h/2+10, 105, 200 );
-		eqlBox1.setPosition( 595, h/2+240, 105, 20);
-		eqlBox1.setValue( mframe1.isEqualized() );
+//		selBoxes1.enableAllOptions();
+//		selBoxes1.disableOption( selBoxes0.getCurrentSelection() );
+//		selBoxes1.setPosition( 595, h/2+10, 105, 200 );
+//		eqlBox1.setPosition( 595, h/2+240, 105, 20);
+//		eqlBox1.setValue( mframe1.isEqualized() );
 		
 		resetBox0.setValue(false);
 		resetBox0.setPosition( 595, 265, 105, 20);
-		resetBox1.setValue(false);
-		resetBox1.setPosition( 595, h/2+265, 105, 20);
+//		resetBox1.setValue(false);
+//		resetBox1.setPosition( 595, h/2+265, 105, 20);
 		
 	}
 	

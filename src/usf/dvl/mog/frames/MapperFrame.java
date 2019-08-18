@@ -92,6 +92,8 @@ public class MapperFrame extends DMultiFrame<DFrame> {
 		resetview = true;
 	}
 
+	public ForceDirectedLayoutFrame getFDL() { return this.fdl; }
+	public Mapper getMapperG() { return this.mapperG; }
 
 	protected class FDL extends ForceDirectedLayoutFrame {
 
