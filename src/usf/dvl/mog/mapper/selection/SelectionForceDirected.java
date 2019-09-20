@@ -1,6 +1,7 @@
 package usf.dvl.mog.mapper.selection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import processing.core.PApplet;
 import usf.dvl.graph.Graph;
@@ -37,6 +38,9 @@ public class SelectionForceDirected extends GraphFrame{
 	// made a new force set
 	private SpringAttractiveForceSet Springs = new SpringAttractiveForceSet(this.fdl, 1);
 	
+	// trying this out with a hashmap and a boolean
+	private HashMap<GraphVertex, SpringAttractiveForceSet> SpringCollection = new HashMap<GraphVertex, SpringAttractiveForceSet>();
+	
 //	public SelectionForceDirected(PApplet p, Graph _g, Filter _filter, int resolution, float eps ) {
 //		super( p, _g );
 //		
@@ -47,6 +51,9 @@ public class SelectionForceDirected extends GraphFrame{
 	{
 		super( p, _g ); 
 		this.frameList = frameList;
+		
+		// create springs here in the constructor 
+		
 	}
 	
 	// overloaded again for fix ?
