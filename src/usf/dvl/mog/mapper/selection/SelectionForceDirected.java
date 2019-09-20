@@ -123,7 +123,7 @@ public class SelectionForceDirected extends GraphFrame{
 				for (ForceDirectedLayoutVertex g : verts )
 				{
 //					fdl.addForce( new CoverPairwise( this.fdl.getVertex(this.selectedPoint), g) );
-					fdl.addForce( Springs.addSpring( fdl.getVertex(this.selectedPoint), g) );
+					//fdl.addForce( Springs.addSpring( fdl.getVertex(this.selectedPoint), g) );
 				}
 				
 			}
