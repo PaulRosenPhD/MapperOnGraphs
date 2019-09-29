@@ -37,7 +37,9 @@ public class SelectionForceDirected extends GraphFrame{
 	
 	// made a new force set
 	private SpringAttractiveForceSet Springs = new SpringAttractiveForceSet(this.fdl, 1);
+
 	
+	private ArrayList<GraphVertex> mapperGVertices = new ArrayList<GraphVertex>();
 	// trying this out with a hashmap and a boolean
 	private HashMap<GraphVertex, SpringAttractiveForceSet> SpringCollection = new HashMap<GraphVertex, SpringAttractiveForceSet>();
 	
@@ -52,8 +54,97 @@ public class SelectionForceDirected extends GraphFrame{
 	public SelectionForceDirected( PApplet p, Graph _g, ArrayList<MapperFrame> frameList)
 	{
 		super( p, _g);
+		this.frameList = frameList;
+		
+		// create springs in the constructor here
+		
+//		System.out.println(jk);
+//		jk++;
+
 	}
 	
+	public void setSelectedMapper0(MapperFrame selectedMapper0 ) 
+	{
+		
+		this.selectedMapper = selectedMapper0;
+		
+		this.mapperGVertices.clear();
+		this.mapperGVertices.addAll( this.selectedMapper.getMapperG().getVertices());
+//		System.out.println(this.mapperGVertices.size() );
+		
+		// for each in Mapper vertices
+		for (GraphVertex g : this.mapperGVertices)
+		{
+			if ( this.SpringCollection.containsKey( g) )
+			{
+				continue;
+			}
+			else
+			{
+				SpringAttractiveForceSet springs;
+				
+				try
+				{
+					
+				}
+				catch(Exception e) { e.printStackTrace(); }
+
+				
+				// have to add from the list of vertices that it is connected to
+				
+			}
+				
+		}
+		
+	}
+	
+	@Override
+	public void update()
+	{
+		super.update();
+		
+//		if (PAppletMOG.selectedVertex != null )
+//		{
+//			System.out.println("Selected Vertex");
+//		}
+		
+		// gets the correct vertices
+//		if (this.selectedMapper != null)
+//		{
+//			int i = this.selectedMapper.getMapperG().getVertices().size();
+//			System.out.println(i);
+//		}
+			
+		
+	}
+	
+	public void draw()
+	{
+		super.draw();
+	}
+	
+	
+	
+	
+	
+	
+	
+	public void calculateMapMouse()
+	{
+		float mouseX = PApplet.constrain( papplet.mouseX, this.selectedMapper.getFDL().getU0(), this.selectedMapper.getFDL().getU0() + super.fdl.getWidth() );
+		float mouseY = PApplet.constrain( papplet.mouseY, this.selectedMapper.getFDL().getV0(), this.selectedMapper.getFDL().getV0() + super.fdl.getHeight() );
+		
+		float mapperU0 = this.selectedMapper.getU0();
+		float mapperV0 = this.selectedMapper.getV0();
+		float mapperW = this.selectedMapper.getU0() + this.selectedMapper.getWidth();
+		float mapperH = this.selectedMapper.getV0() + this.selectedMapper.getHeight();
+		
+		this.unmapX = PApplet.map(mouseX, mapperU0, mapperW, 0, this.w);
+		this.unmapY = PApplet.map(mouseY, mapperH, mapperV0, this.h, 0);			
+		
+		this.unmapX = super.unmapX( this.unmapX );
+		this.unmapY = super.unmapY( this.unmapY );
+	}
 	
 	
 	/****
@@ -198,4 +289,5 @@ public class SelectionForceDirected extends GraphFrame{
 	
 	
 	
+	// need this end brace for the class
 }
