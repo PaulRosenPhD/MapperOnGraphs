@@ -11,6 +11,7 @@ import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
 import usf.dvl.graph.layout.forcedirected.force.BasicForce;
 import usf.dvl.graph.layout.forcedirected.force.BasicForce.PairwiseForce;
+import usf.dvl.graph.mapper.Mapper;
 import usf.dvl.graph.mapper.Mapper.MapperVertex;
 import usf.dvl.graph.mapper.filter.Filter;
 import usf.dvl.graph.layout.forcedirected.force.LinearAttractiveForceSet;
@@ -75,16 +76,29 @@ public class SelectionForceDirected extends GraphFrame{
 		// for each in Mapper vertices
 		for (GraphVertex g : this.mapperGVertices)
 		{
+			// if the Mapped vertex already exists in the HashMap, continue
 			if ( this.SpringCollection.containsKey( g) )
 			{
 				continue;
 			}
 			else
 			{
-				SpringAttractiveForceSet springs;
 				
 				try
 				{
+					SpringAttractiveForceSet springs = null;
+					ArrayList<ForceDirectedLayoutVertex> FDLVertices = this.fdl.getLayoutVerts();
+					ArrayList<ForceDirectedLayoutVertex> vertices = new ArrayList<ForceDirectedLayoutVertex>();
+					vertices.add( FDLVertices.get( super.g.getVertexIndex(g) )) ;
+
+					for ( ForceDirectedLayoutVertex v : vertices)
+					{
+						// create the springs here and add
+					}
+					// gets the vertices of the force directed layout of the right
+//					System.out.println( this.fdl.getLayoutVerts().size() );
+					
+					
 					
 				}
 				catch(Exception e) { e.printStackTrace(); }
