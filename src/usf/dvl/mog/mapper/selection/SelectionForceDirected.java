@@ -6,11 +6,11 @@ import java.util.HashMap;
 import processing.core.PApplet;
 import usf.dvl.graph.Graph;
 import usf.dvl.graph.Graph.GraphVertex;
-import usf.dvl.graph.layout.forcedirected.ForceDirectedLayout;
-import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
+//import usf.dvl.graph.layout.forcedirected.ForceDirectedLayout;
+//import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
-import usf.dvl.graph.layout.forcedirected.force.BasicForce;
-import usf.dvl.graph.layout.forcedirected.force.BasicForce.PairwiseForce;
+//import usf.dvl.graph.layout.forcedirected.force.BasicForce;
+//import usf.dvl.graph.layout.forcedirected.force.BasicForce.PairwiseForce;
 import usf.dvl.graph.mapper.Mapper;
 import usf.dvl.graph.mapper.Mapper.MapperVertex;
 import usf.dvl.graph.mapper.filter.Filter;
@@ -74,7 +74,7 @@ public class SelectionForceDirected extends GraphFrame{
 //		System.out.println(this.mapperGVertices.size() );
 		
 		// for each in Mapper vertices
-		for (GraphVertex g : this.mapperGVertices)
+		for (GraphVertex gVertex : this.mapperGVertices)
 		{
 			// if the Mapped vertex already exists in the HashMap, continue
 			if ( this.SpringCollection.containsKey( g) )
@@ -88,8 +88,9 @@ public class SelectionForceDirected extends GraphFrame{
 				{
 					SpringAttractiveForceSet springs = null;
 					ArrayList<ForceDirectedLayoutVertex> FDLVertices = this.fdl.getLayoutVerts();
+//					System.out.println( FDLVertices.size() );
 					ArrayList<ForceDirectedLayoutVertex> vertices = new ArrayList<ForceDirectedLayoutVertex>();
-					vertices.add( FDLVertices.get( super.g.getVertexIndex(g) )) ;
+//					vertices.add( FDLVertices.get( super.g.getVertexIndex(gVertex) )) ;
 
 					for ( ForceDirectedLayoutVertex v : vertices)
 					{
@@ -97,6 +98,7 @@ public class SelectionForceDirected extends GraphFrame{
 					}
 					// gets the vertices of the force directed layout of the right
 //					System.out.println( this.fdl.getLayoutVerts().size() );
+					
 					
 					
 					
