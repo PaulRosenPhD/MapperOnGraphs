@@ -42,7 +42,7 @@ public class SelectionForceDirected extends GraphFrame{
 	
 	private ArrayList<MapperVertex> mapperGVertices = new ArrayList<MapperVertex>();
 	// trying this out with a hashmap and a boolean
-	private HashMap<GraphVertex, SpringAttractiveForceSet> SpringCollection = new HashMap<GraphVertex, SpringAttractiveForceSet>();
+	private HashMap<MapperVertex, SpringAttractiveForceSet> SpringCollection = new HashMap<MapperVertex, SpringAttractiveForceSet>();
 	
 //	public SelectionForceDirected(PApplet p, Graph _g, Filter _filter, int resolution, float eps ) {
 //		super( p, _g );
@@ -78,7 +78,7 @@ public class SelectionForceDirected extends GraphFrame{
 		{
 			this.mapperGVertices.add( (Mapper.MapperVertex) this.selectedMapper.getMapperG().getVertex(i) );
 		}
-		System.out.println(this.mapperGVertices.size() );
+//		System.out.println(this.mapperGVertices.size() );
 		
 		// for each in Mapper vertices
 		for (MapperVertex gVertex : this.mapperGVertices)
@@ -94,17 +94,25 @@ public class SelectionForceDirected extends GraphFrame{
 				try
 				{
 					SpringAttractiveForceSet springs = null;
+					
+					// ok so I may have to rethink how I approach all of this and the naming convention
+					// basically I have to get the vertices on the right (cc) that are mapped to the vertex on the left
+					// once I have the cc, I need to loop through them and create a spring attractive force between all of them
+					// also make sure I don't create them twice so loop through and decrease the start (i.e. from i+1 to size)
+					// then I need to add them to the spring collection
+					// also I may have complicated all of this from the beginning so I need to go back and make sure what I am doing is correct
+					// and rename and comment stuff because I forgot how I did all of this ages ago
 					ArrayList<ForceDirectedLayoutVertex> FDLVertices = this.fdl.getLayoutVerts();
 //					System.out.println( FDLVertices.size() );
-					ArrayList<ForceDirectedLayoutVertex> vertices = new ArrayList<ForceDirectedLayoutVertex>();
+					ArrayList<GraphVertex> vertices = new ArrayList<GraphVertex>();
 //					vertices.add( FDLVertices.get( super.g.getVertexIndex(gVertex) )) ;
 
-					for ( ForceDirectedLayoutVertex v : vertices)
+					for ( GraphVertex v : vertices)
 					{
 						// create the springs here and add
 					}
 					// gets the vertices of the force directed layout of the right
-					
+					System.out.println( super.g.getVertexIndex(gVertex));
 					
 					
 					
