@@ -6,11 +6,11 @@ import java.util.HashMap;
 import processing.core.PApplet;
 import usf.dvl.graph.Graph;
 import usf.dvl.graph.Graph.GraphVertex;
-//import usf.dvl.graph.layout.forcedirected.ForceDirectedLayout;
-//import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
+import usf.dvl.graph.layout.forcedirected.ForceDirectedLayout;
+import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutFrame;
 import usf.dvl.graph.layout.forcedirected.ForceDirectedLayoutVertex;
-//import usf.dvl.graph.layout.forcedirected.force.BasicForce;
-//import usf.dvl.graph.layout.forcedirected.force.BasicForce.PairwiseForce;
+import usf.dvl.graph.layout.forcedirected.force.BasicForce;
+import usf.dvl.graph.layout.forcedirected.force.BasicForce.PairwiseForce;
 import usf.dvl.graph.mapper.Mapper;
 import usf.dvl.graph.mapper.Mapper.MapperVertex;
 import usf.dvl.graph.mapper.filter.Filter;
@@ -40,7 +40,7 @@ public class SelectionForceDirected extends GraphFrame{
 	private SpringAttractiveForceSet Springs = new SpringAttractiveForceSet(this.fdl, 1);
 
 	
-	private ArrayList<GraphVertex> mapperGVertices = new ArrayList<GraphVertex>();
+	private ArrayList<MapperVertex> mapperGVertices = new ArrayList<MapperVertex>();
 	// trying this out with a hashmap and a boolean
 	private HashMap<GraphVertex, SpringAttractiveForceSet> SpringCollection = new HashMap<GraphVertex, SpringAttractiveForceSet>();
 	
@@ -70,11 +70,18 @@ public class SelectionForceDirected extends GraphFrame{
 		this.selectedMapper = selectedMapper0;
 		
 		this.mapperGVertices.clear();
-		this.mapperGVertices.addAll( this.selectedMapper.getMapperG().getVertices());
-//		System.out.println(this.mapperGVertices.size() );
+		
+//		this.mapperGVertices.addAll( (Mapper.MapperVertex) this.selectedMapper.getMapperG().getVertices());
+		
+		// ok so this whole convoluted way of getting the mapper vertex is to cast it like I did in Selection Frame
+		for (int i = 0; i < this.selectedMapper.getMapperG().getVertices().size(); i++)
+		{
+			this.mapperGVertices.add( (Mapper.MapperVertex) this.selectedMapper.getMapperG().getVertex(i) );
+		}
+		System.out.println(this.mapperGVertices.size() );
 		
 		// for each in Mapper vertices
-		for (GraphVertex gVertex : this.mapperGVertices)
+		for (MapperVertex gVertex : this.mapperGVertices)
 		{
 			// if the Mapped vertex already exists in the HashMap, continue
 			if ( this.SpringCollection.containsKey( g) )
@@ -97,7 +104,7 @@ public class SelectionForceDirected extends GraphFrame{
 						// create the springs here and add
 					}
 					// gets the vertices of the force directed layout of the right
-//					System.out.println( this.fdl.getLayoutVerts().size() );
+					
 					
 					
 					
