@@ -108,7 +108,6 @@ public class SelectionForceDirected extends GraphFrame{
 					
 					
 					
-					
 				}
 				catch(Exception e) { e.printStackTrace(); }
 
